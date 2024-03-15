@@ -22,10 +22,14 @@ class MovieController extends Controller
     //Show single movie
     public function show(Movie $movie)
     {
-        $user = Auth::user();
-        $score = Score::where('user_id', $user->id)
-            ->where('movie_id', $movie->id)
-            ->first();
+        if (Auth::user()) {
+            $user = Auth::user();
+            $score = Score::where('user_id', $user->id)
+                ->where('movie_id', $movie->id)
+                ->first();
+        } else {
+            $score = null;
+        }
 
 
         return view('movies/movie-detail', [

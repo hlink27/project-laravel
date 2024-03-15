@@ -24,6 +24,7 @@
         <p class="synopsis">{{$movie->synopsis}}</p>
         <h3>Nota geral: {{$movie->total_score}}</h3>
         <div>
+            @auth
             @if(!$score)
             <form method="POST" action="/score">
                 @csrf
@@ -33,9 +34,10 @@
                 <button type="submit">Enviar Avaliação</button>
             </form>
             @else
-                
                 <h5>Sua nota para este filme: {{ $score->score }} / 10</h5>
             @endif
+            @endauth
+            
         </div>
         
         @auth
